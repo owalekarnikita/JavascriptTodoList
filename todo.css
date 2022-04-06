@@ -1,0 +1,27 @@
+li #name,
+li #checkbtn,
+li #icon {
+  font-size: 18px;
+}
+
+li #checkbtn:checked {
+  color: blue;
+}
+
+ul {
+  width: 100%;
+}
+
+li #icon {
+  padding-left: 25%;
+}
+
+li #name {
+  padding-left: 5%;
+}
+
+div #date {
+  color: white;
+  font-size: 20px;
+}
+/*# sourceMappingURL=todo.css.map */

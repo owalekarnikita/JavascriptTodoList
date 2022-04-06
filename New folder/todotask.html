@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> to do list - local storage </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" integrity="sha512-wnea99uKIC3TJF7v4eKk4Y+lMz2Mklv18+r4na2Gn1abDRPPOeef95xTzdwGD9e6zXJBteMIhZ1+68QC5byJZw==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <style>
+        ul {
+            display: inline;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-600 w-screen h-screen text-blue-700">
+    <div class="container w-96 h-96 bg-pink-300 p-10 m-40 items-center shadow-2xl drop-shadow rounded-lg overflow-auto">
+        <h1 id="date"></h1>
+        <br>
+        <input type="text" id="add" class="bg-transparent" placeholder="   Add a new item ..." /> &nbsp; &nbsp;
+        <button type="submit" class="bg-white rounded-full pl-2 pr-2 hover:bg-green-200" onclick="createStore()">submit</button>
+        <br><br>
+        <hr class="p-0">
+        <br>
+        <div id="main">
+
+        </div>
+    </div>
+
+
+    <script>
+        let date = new Date();
+        let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        let day = days[date.getDay()];
+        let month = months[date.getMonth()];
+
+        document.getElementById('date').innerHTML = ` ${day} <br> ${date.getDate()} ${month} ${date.getFullYear()}`;
+        let n = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + "&nbsp;" + date.getHours() + ":" + date.getMinutes();
+
+        function createStore() {
+            const main = document.getElementById("main");
+
+            const todo = document.createElement('ul');
+            todo.className = 'task';
+            main.appendChild(todo);
+
+            const radio = document.createElement("li");
+            radio.innerHTML = `<input type="radio" id="radiobtn" name="radio"/> &nbsp;`;
+            todo.appendChild(radio);
+
+            const date = document.createElement('span');
+            date.innerHTML = document.querySelector('#add').value + '&nbsp;' + n;
+            radio.appendChild(date);
+
+            const icon = document.createElement('span');
+            icon.innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-xmark" id="icon"></i> `;
+            radio.appendChild(icon);
+
+
+            radio.onclick = function() {
+                date.style.textDecoration = "line-through";
+            }
+            radio.ondblclick = function() {
+                let ra = document.querySelector('input[type=radio][name=radio]:checked');
+                radio.checked = false;
+                date.style.textDecoration = "none";
+            }
+
+            icon.onclick = function() {
+
+                let x = todo;
+                x.style.display = "none";
+                x.removeChild();
+
+            }
+
+
+            localStorage.setItem("Database2", main.innerHTML);
+
+
+        }
+
+        function retrieve() {
+            if (localStorage.getItem("Database2") === null) alert("Nothing in Database");
+            else {
+                document.getElementById("main").innerHTML = localStorage.getItem(
+                    "Database2"
+                );
+                let buttons = document.getElementsByTagName("button");
+                for (let z = 0; z < buttons.length; z++) {
+                    if (buttons[z].innerText == "Delete Task") {
+                        buttons[z].addEventListener("click", function() {
+                            this.parentElement.remove();
+                            localStorage.setItem("Databas2", tasks.innerHTML);
+                            alert("localStorage (Database2):\n" + localStorage.getItem("Database2"));
+                        });
+                    }
+                }
+            }
+        }
+
+        window.onload = retrieve;
+    </script>
+</body>
+
+</html>

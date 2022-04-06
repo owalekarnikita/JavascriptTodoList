@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO DO LIST DEMO </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" integrity="sha512-wnea99uKIC3TJF7v4eKk4Y+lMz2Mklv18+r4na2Gn1abDRPPOeef95xTzdwGD9e6zXJBteMIhZ1+68QC5byJZw==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body class="bg-gray-600 w-screen h-screen text-blue-700">
+    <div class="container w-96 h-96 bg-pink-300 p-10 m-40 items-center shadow-2xl drop-shadow rounded-lg">
+        <h1 id="date"></h1>
+        <br>
+        <input type="text" id="add" class="bg-transparent" placeholder="Add a new item ..." />
+        <button type="submit" class="bg-white rounded-full pl-2 pr-2" onclick="addItem()">submit</button>
+        <br><br>
+        <hr class="p-0">
+        <br>
+        <section class="inline-flex content-center hidden" id="section">
+            <div id="div1">
+                <input type="radio" id="radiobtn" />&nbsp;
+                <label id="name"></label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa-solid fa-xmark" onclick="removeItem()"></i>
+                <br>
+                <label id="time"></label>
+            </div>
+
+        </section>
+    </div>
+
+
+    <script>
+        let a = new Date();
+        document.getElementById('date').innerHTML = `${a.getDate()}/${a.getMonth()}/${a.getFullYear()}`;
+
+        function addItem() {
+            let a = document.getElementById("name");
+            let np = document.getElementById("add");
+            let li = document.createElement("label");
+            li.setAttribute('id', np.value);
+            li.appendChild(document.createTextNode(np.value));
+            a.appendChild(li);
+            let bc = document.getElementById('section');
+            bc.append(document.getElementById('div1'));
+            let x = document.getElementById('section');
+            x.style.display = "block";
+
+            radiobtn.onclick = function() {
+                a.style.textDecoration = "line-through";
+            }
+        }
+
+        function removeItem() {
+
+            let a = document.getElementById("name");
+            let candidate = document.getElementById("add");
+            let item = document.getElementById(candidate.value);
+            a.removeChild(item);
+            let x = document.getElementById('section');
+            x.style.display = "none";
+            let bc = document.getElementById('section');
+            a.style.textDecoration = "none";
+        }
+    </script>
+</body>
+
+</html>
